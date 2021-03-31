@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import environ
+from django.urls import reverse_lazy
+
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False)
@@ -139,3 +141,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')     # 앱에 종속되지 않은 static
 ]
+
+# 로그인시 리다이렉트
+LOGIN_REDIRECT_URL = reverse_lazy("account:hello_world")
+# 로그아웃시 리다이렉트
+LOGOUT_REDIRECT_URL = reverse_lazy("account:login")
