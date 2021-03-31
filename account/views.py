@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 
 
 def hello_world(request):
@@ -15,8 +15,13 @@ def hello_world(request):
 
 
 class AccountCreateView(CreateView):
-        model = User   # 모델 기본제공
-        form_class = UserCreationForm # 기본제공
-        success_url = reverse_lazy("account:hello_world")  # 성공시 리다리엑트
-        # reverse Vs reverse_lazy 차이는 함수 // 클레스 차이
-        template_name = "account/create.html"  # 현재 템플릿(아이디 생성할..)
+    model = User   # 모델 기본제공
+    form_class = UserCreationForm # 기본제공
+    success_url = reverse_lazy("account:hello_world")  # 성공시 리다리엑트
+    # reverse Vs reverse_lazy 차이는 함수 // 클레스 차이
+    template_name = "account/create.html"  # 현재 템플릿(아이디 생성할..)
+
+class AccountDetailView(DetailView):
+    model = User
+    context_object_name = 'target_user' # model을 다르게 해야한다, 똑같이 user로 할 경우 로그인 세션의 user로 인식됨
+    template_name = "account/detail.html"
