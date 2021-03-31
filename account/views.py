@@ -5,4 +5,5 @@ from django.shortcuts import render
 
 def hello_world(request):
     qwe = "q"
-    return HttpResponse("hello world!")
+    #return HttpResponse("hello world!")
+    return render(request, "base.html")  # templates in setting 설정
