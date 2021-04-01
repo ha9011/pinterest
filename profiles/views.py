@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView
 
@@ -14,9 +14,13 @@ class ProfileCreateView(CreateView):
     model = Profile
     context_object_name =  "target_profile"
     form_class = ProfileCreationForm
-    success_url = reverse_lazy("account:hello_world")
+    #success_url = reverse_lazy("account:detail")  # urls.py 보면 파라미터 값이 필요하다. 여기선 동적으로 줄수없다
+
     template_name = "profiles/create.html"
 
+    # 동적으로 리버스하기
+    def get_success_url(self):
+        return reverse("account:detail", kwargs={"pk":self.object.user.pk}) # self.object는 model의 profile임
 
     # 인자 값이 있는 form은  클라이언트에서 온 데이터가 -> form_class = ProfileCreationForm 여기로 이동 되어
     # form obj에 담겨조 옴

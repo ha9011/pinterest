@@ -11,23 +11,28 @@
         <img src = "{{ target_user.profile.image.url }}" alt="" style="height:12rem; width:12rem; border-radius : 20rem; border: 1px solid gray; margin-bottom : 2rem">
         <h2 style="font-family: 'NanumSquareB'">
             {{ target_user.profile.nickname}}
+            {% if target_user == user %}
+             <a href="{% url 'profiles:update' pk=target_user.profile.pk  %}">
+                <p>
+                    Profile Edit
+                </p>
+            </a>
+            {% endif%}
         </h2>
-         <a href="{% url 'profiles:update' pk=target_user.profile.pk  %}">
-            <p>
-                Profile Edit
-            </p>
-        </a>
-        {% else %}
-        <a href="{% url 'profiles:create'  %}">
-            <p>
-                Create Profile
-            </p>
-        </a>
-        {% endif %}
-
-        <h5 style="font-family: 'NanumSquareB'; margin-bottom : 3rem">
+         <h5 style="font-family: 'NanumSquareB'; margin-bottom : 3rem">
             {{ target_user.profile.message}}
         </h5>
+        {% else %}
+             {% if target_user == user %}
+            <a href="{% url 'profiles:create'  %}">
+                <p>
+                    Create Profile
+                </p>
+            </a>
+            {% endif%}
+        {% endif %}
+
+
 
 
         {% if target_user == user %}
