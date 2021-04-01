@@ -40,17 +40,6 @@ class AccountDetailView(DetailView):
     context_object_name = 'target_user'  # model을 다르게 해야한다, 똑같이 user로 할 경우 로그인 세션의 user로 인식됨
     template_name = "account/detail.html"
 
-    def get(self, *args, **kwargs):  # method get
-        if self.request.user.is_authenticated and self.get_object() == self.request.user:
-            return super().get(*args, **kwargs)
-        else:
-            return HttpResponseForbidden()  #
-
-    def post(self, *args, **kwargs):  # method get
-        if self.request.user.is_authenticated and self.get_object() == self.request.user:
-            return super().post(*args, **kwargs)
-        else:
-            return HttpResponseForbidden()  #
 
 
 @method_decorator(has_ownership, "get")  # 일반 메소드에서 사용하는 데코를 클레스에서도 쓰게 하는 데코
@@ -72,14 +61,4 @@ class AccountDeleteView(DeleteView):
     success_url = reverse_lazy("account:login")  # 성공시 리다리엑트
     template_name = "account/delete.html"
 
-    def get(self, *args, **kwargs):  # method get
-        if self.request.user.is_authenticated and self.get_object() == self.request.user:
-            return super().get(*args, **kwargs)
-        else:
-            return HttpResponseForbidden()  #
 
-    def post(self, *args, **kwargs):  # method get
-        if self.request.user.is_authenticated and self.get_object() == self.request.user:
-            return super().post(*args, **kwargs)
-        else:
-            return HttpResponseForbidden()  #
