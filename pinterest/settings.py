@@ -54,7 +54,8 @@ INSTALLED_APPS = [
     # library
     "bootstrap4",
     # app
-    "account"
+    "account",
+    "profiles"
 ]
 
 MIDDLEWARE = [
@@ -139,9 +140,9 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/media/'  # url상 경로
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")  # 저장 폴더 경로
 
 
 STATICFILES_DIRS = [
