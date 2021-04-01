@@ -4,7 +4,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.urls import reverse
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, ListView
 
 from articles.decorators import article_ownsership_required
 from articles.forms import ArticleCreationForm
@@ -56,3 +56,11 @@ class ArticleDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse("articles:list")
+
+
+class ArticleListView(ListView):
+    model = Article
+    context_object_name = "article_list"
+    template_name = "articles/list.html"
+    paginate_by = 1  # 보여질 obj 갯수
+

@@ -21,54 +21,28 @@
 
 </head>
 <body>
+    {% if article_list %}
+     <div class="container">
 
-  <div class="container">
-    <div class="item1">
-        <img src="https://picsum.photos/200/300" alt="random">
+          {% for article in article_list %}
+            <a href="{% url 'articles:detail' pk=article.pk %}">
+               {% include "snippets/card.html" with article=article %}
+            </a>
+          {% endfor %}
+      </div>
+    <script src="{% static 'js/magicgrid.js' %}"></script>
+    {% else %}
+    <div class="text-center">
+        <h1>No Articles Yet!</h1>
     </div>
-       <div class="item1">
-        <img src="https://picsum.photos/200/340" alt="random">
-    </div>
-       <div class="item1">
-        <img src="https://picsum.photos/200/380" alt="random">
-    </div>
-       <div class="item1">
-        <img src="https://picsum.photos/200/330" alt="random">
-    </div>
-       <div class="item1">
-        <img src="https://picsum.photos/200/400" alt="random">
-    </div>
-       <div class="item1">
-        <img src="https://picsum.photos/200/330" alt="random">
-    </div>
-       <div class="item1">
-        <img src="https://picsum.photos/200/360" alt="random">
-    </div>
-       <div class="item1">
-        <img src="https://picsum.photos/200/390" alt="random">
-    </div>
-       <div class="item1">
-        <img src="https://picsum.photos/200/310" alt="random">
-    </div>
-       <div class="item1">
-        <img src="https://picsum.photos/200/370" alt="random">
-    </div>
-       <div class="item1">
-        <img src="https://picsum.photos/200/380" alt="random">
-    </div>
-       <div class="item1">
-        <img src="https://picsum.photos/200/330" alt="random">
-    </div>
-       <div class="item1">
-        <img src="https://picsum.photos/200/360" alt="random">
-    </div>
+    {% endif %}
 
-  </div>
+    {% include "snippets/pagination.html" with page_obj=page_obj %}
 
   <div style="text-align : center">
       <a href = "{% url 'articles:create' %}" class="btn btn-dark rounded-pill col-3 mt-3 mb-3">
           Create Article
       </a>
   </div>
-  <script src="{% static 'js/magicgrid.js' %}"></script>
+
 {% endblock %}
