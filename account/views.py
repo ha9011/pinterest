@@ -5,7 +5,9 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, UpdateView
+
+from account.forms import AccountUpdateForm
 
 
 def hello_world(request):
@@ -20,6 +22,15 @@ class AccountCreateView(CreateView):
     success_url = reverse_lazy("account:hello_world")  # 성공시 리다리엑트
     # reverse Vs reverse_lazy 차이는 함수 // 클레스 차이
     template_name = "account/create.html"  # 현재 템플릿(아이디 생성할..)
+
+
+class AccountUpdateView(UpdateView):
+    model = User   # 모델 기본제공
+    form_class = AccountUpdateForm # 커스텀
+    success_url = reverse_lazy("account:hello_world")  # 성공시 리다리엑트
+    # reverse Vs reverse_lazy 차이는 함수 // 클레스 차이
+    template_name = "account/update.html"  # 현재 템플릿(아이디 생성할..)
+
 
 class AccountDetailView(DetailView):
     model = User
