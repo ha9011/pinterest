@@ -11,5 +11,5 @@ class Article(models.Model):
     title = models.CharField(max_length=200, null=True)
     image = models.ImageField(upload_to="article/", null=False)
     content = models.TextField(null=True)
-    created_at = models.DateField(auto_now_add=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
 
