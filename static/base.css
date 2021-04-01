@@ -17,3 +17,12 @@ margin-top : 2rem;
  text-align : center; margin-bottom : 2rem 0;
 }
 
+
+
+/* 스크린 사이즈가 500이하로 떨어지면 적용됨*/
+@media screen adn (max-width : 500px ){
+    html {
+        font-size : 13px;
+    }
+
+}

@@ -41,4 +41,5 @@ class CommentsDeleteView(DeleteView):
 
 
 ## 업데이트 혼자 해보기
+## ajax로 해보기
 
