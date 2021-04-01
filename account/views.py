@@ -27,6 +27,7 @@ class AccountCreateView(CreateView):
 class AccountUpdateView(UpdateView):
     model = User  # 모델 기본제공
     form_class = AccountUpdateForm  # 커스텀
+    context_object_name = 'target_user'
     success_url = reverse_lazy("account:hello_world")  # 성공시 리다리엑트
     # reverse Vs reverse_lazy 차이는 함수 // 클레스 차이
     template_name = "account/update.html"  # 현재 템플릿(아이디 생성할..)
@@ -40,6 +41,6 @@ class AccountDetailView(DetailView):
 
 class AccountDeleteView(DeleteView):
     model = User
-
+    context_object_name = 'target_user'
     success_url = reverse_lazy("account:login")  # 성공시 리다리엑트
     template_name = "account/delete.html"
