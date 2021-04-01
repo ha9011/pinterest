@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
@@ -5,11 +6,16 @@ from django.shortcuts import render, reverse
 
 # Create your views here.
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
+from account.decorators import account_ownsership_required
 from account.forms import AccountUpdateForm
 
+has_ownership = [account_ownsership_required, login_required]
 
+
+@login_required
 def hello_world(request):
     qwe = "q"
     # return HttpResponse("hello world!")
@@ -29,6 +35,26 @@ class AccountCreateView(CreateView):
     template_name = "account/create.html"  # 현재 템플릿(아이디 생성할..)
 
 
+class AccountDetailView(DetailView):
+    model = User
+    context_object_name = 'target_user'  # model을 다르게 해야한다, 똑같이 user로 할 경우 로그인 세션의 user로 인식됨
+    template_name = "account/detail.html"
+
+    def get(self, *args, **kwargs):  # method get
+        if self.request.user.is_authenticated and self.get_object() == self.request.user:
+            return super().get(*args, **kwargs)
+        else:
+            return HttpResponseForbidden()  #
+
+    def post(self, *args, **kwargs):  # method get
+        if self.request.user.is_authenticated and self.get_object() == self.request.user:
+            return super().post(*args, **kwargs)
+        else:
+            return HttpResponseForbidden()  #
+
+
+@method_decorator(has_ownership, "get")  # 일반 메소드에서 사용하는 데코를 클레스에서도 쓰게 하는 데코
+@method_decorator(has_ownership, "post")  # 일반 메소드에서 사용하는 데코를 클레스에서도 쓰게 하는 데코
 class AccountUpdateView(UpdateView):
     model = User  # 모델 기본제공
     form_class = AccountUpdateForm  # 커스텀
@@ -37,38 +63,9 @@ class AccountUpdateView(UpdateView):
     # reverse Vs reverse_lazy 차이는 함수 // 클레스 차이
     template_name = "account/update.html"  # 현재 템플릿(아이디 생성할..)
 
-    def get(self, *args, **kwargs):  # method get
-        if self.request.user.is_authenticated and self.get_object() == self.request.user :  # self.get_object() self는 현재 클레스이며, 그 중 model에서 pk값으로 받은 object를 말함
 
-            return super().get(*args, **kwargs)
-        else:
-            return HttpResponseRedirect(reverse("account:login"))  #
-
-    def post(self, *args, **kwargs):  # method get
-        if self.request.user.is_authenticated:
-            return super().post(*args, **kwargs)
-        else:
-            return HttpResponseRedirect(reverse("account:login"))  #
-
-
-class AccountDetailView(DetailView):
-    model = User
-    context_object_name = 'target_user'  # model을 다르게 해야한다, 똑같이 user로 할 경우 로그인 세션의 user로 인식됨
-    template_name = "account/detail.html"
-
-    def get(self, *args, **kwargs):  # method get
-        if self.request.user.is_authenticated and self.get_object() == self.request.user :
-            return super().get(*args, **kwargs)
-        else:
-            return HttpResponseForbidden()  #
-
-    def post(self, *args, **kwargs):  # method get
-        if self.request.user.is_authenticated and self.get_object() == self.request.user :
-            return super().post(*args, **kwargs)
-        else:
-            return HttpResponseForbidden()  #
-
-
+@method_decorator(has_ownership, "get")  # 일반 메소드에서 사용하는 데코를 클레스에서도 쓰게 하는 데코
+@method_decorator(has_ownership, "post")  # 일반 메소드에서 사용하는 데코를 클레스에서도 쓰게 하는 데코
 class AccountDeleteView(DeleteView):
     model = User
     context_object_name = 'target_user'
@@ -76,13 +73,13 @@ class AccountDeleteView(DeleteView):
     template_name = "account/delete.html"
 
     def get(self, *args, **kwargs):  # method get
-        if self.request.user.is_authenticated and self.get_object() == self.request.user :
+        if self.request.user.is_authenticated and self.get_object() == self.request.user:
             return super().get(*args, **kwargs)
         else:
             return HttpResponseForbidden()  #
 
     def post(self, *args, **kwargs):  # method get
-        if self.request.user.is_authenticated and self.get_object() == self.request.user :
+        if self.request.user.is_authenticated and self.get_object() == self.request.user:
             return super().post(*args, **kwargs)
         else:
             return HttpResponseForbidden()  #
