@@ -12,6 +12,10 @@
 
                 <span>login</span>
              </a>
+             <a href="{% url 'account:create' %}">
+
+                <span>Sign up</span>
+             </a>
          {% else %}
               <a href="{% url 'account:detail' pk=user.pk %}">
 
