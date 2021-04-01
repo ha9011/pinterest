@@ -5,10 +5,12 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, ListView
+from django.views.generic.edit import FormMixin
 
 from articles.decorators import article_ownsership_required
 from articles.forms import ArticleCreationForm
 from articles.models import Article
+from comments.forms import CommentsCreationForm
 
 
 @method_decorator(login_required, "get")
@@ -27,10 +29,13 @@ class ArticleCreateView(CreateView):
     def get_success_url(self):
         return reverse("articles:detail", kwargs={"pk" : self.object.pk})
 
-class ArticleDetailView(DetailView):
+class ArticleDetailView(DetailView, FormMixin):
     model = Article
+    form_class = CommentsCreationForm
     template_name = "articles/detail.html"
     context_object_name = "target_article"
+
+
 
 
 @method_decorator(article_ownsership_required,"get")
@@ -40,6 +45,7 @@ class ArticleUpdateView(UpdateView):
     form_class = ArticleCreationForm
     context_object_name = "target_article"
     template_name = "articles/update.html"
+
 
 
     def get_success_url(self):
