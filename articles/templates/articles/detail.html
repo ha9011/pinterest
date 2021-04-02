@@ -12,9 +12,9 @@
         </h5>
 <hr>
         <img style="width : 100% ; border-radius : 1rem; margin : 2rem 0;" src = "{{ target_article.image.url}}" >
-        <p>
-            {{ target_article.content}}
-        </p>
+        <div style="text-align:left;">
+         {{ target_article.content | safe }}  # <!--   safe 태그들을 없에줌 -->
+        </div>
 
         {% if target_article.writer == user %}
         <a href="{% url 'articles:update' pk=target_article.pk %}" class="btn btn-info rounded-pill col-3">
