@@ -13,7 +13,7 @@ class ArticleCreationForm(ModelForm):
 
     project = forms.ModelChoiceField(queryset=Project.objects.all(), required=False)
     # 내가 만든 프로젝트에서만 글 올릴수있게 하기
-    
+
     class Meta :
         model = Article
         fields = ["title", "image", "project", "content"]

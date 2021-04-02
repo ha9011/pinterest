@@ -17,16 +17,6 @@ from articles.models import Article
 has_ownership = [account_ownsership_required, login_required]
 
 
-@login_required
-def hello_world(request):
-    qwe = "q"
-    # return HttpResponse("hello world!")
-    if request.user.is_authenticated:
-
-        return render(request, "account/hello_world.html")  # templates in setting 설정
-
-    else:
-        return HttpResponseRedirect(reverse("account:login"))  # templates in setting 설정
 
 
 class AccountCreateView(CreateView):

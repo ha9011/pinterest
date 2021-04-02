@@ -154,6 +154,6 @@ STATICFILES_DIRS = [
 ]
 
 # 로그인시 리다이렉트
-LOGIN_REDIRECT_URL = reverse_lazy("account:hello_world")
+LOGIN_REDIRECT_URL = reverse_lazy("home")
 # 로그아웃시 리다이렉트
 LOGOUT_REDIRECT_URL = reverse_lazy("account:login")
