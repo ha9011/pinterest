@@ -8,6 +8,7 @@ from django.views.generic.list import MultipleObjectMixin
 from articles.models import Article
 from projects.forms import ProjectCreationForm
 from projects.models import Project
+from subscribes.models import Subscribe
 
 
 class ProjectCreateView(CreateView):
@@ -28,9 +29,16 @@ class ProjectDetailView(DetailView, MultipleObjectMixin): # 여러가지 믹스�
     paginate_by = 25
 
     def get_context_data(self, **kwargs):
+
+        project = self.object
+        user = self.request.user
+        subscribe = None
+        if user.is_authenticated :
+            subscribe = Subscribe.objects.filter(user=user, project=project)
+
         object_list = Article.objects.filter(project=self.get_object())
         # self.get_object() : 현재 클레스의 오브젝트 ( project )
-        return super(ProjectDetailView, self).get_context_data(object_list=object_list, **kwargs)
+        return super(ProjectDetailView, self).get_context_data(object_list=object_list, subscribe=subscribe, **kwargs)
 
 
 class ProjectListView(ListView):
