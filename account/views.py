@@ -22,7 +22,7 @@ has_ownership = [account_ownsership_required, login_required]
 class AccountCreateView(CreateView):
     model = User  # 모델 기본제공
     form_class = UserCreationForm  # 기본제공
-    success_url = reverse_lazy("account:hello_world")  # 성공시 리다리엑트
+    success_url = reverse_lazy("articles:list")  # 성공시 리다리엑트
     # reverse Vs reverse_lazy 차이는 함수 // 클레스 차이
     template_name = "account/create.html"  # 현재 템플릿(아이디 생성할..)
 
@@ -45,7 +45,7 @@ class AccountUpdateView(UpdateView):
     model = User  # 모델 기본제공
     form_class = AccountUpdateForm  # 커스텀
     context_object_name = 'target_user'
-    success_url = reverse_lazy("account:hello_world")  # 성공시 리다리엑트
+    success_url = reverse_lazy("articles:list")  # 성공시 리다리엑트
     # reverse Vs reverse_lazy 차이는 함수 // 클레스 차이
     template_name = "account/update.html"  # 현재 템플릿(아이디 생성할..)
 

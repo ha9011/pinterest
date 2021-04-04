@@ -24,7 +24,8 @@ def read_secret(secret_name):
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = read_secret('DJANGO_SECRET_KEY')
+SECRET_KEY = "0$m7)nf$zf^5x@3hog8uw*_v4l3(+1otxalz=6(fpp0@nrcps!"
+    #read_secret('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
