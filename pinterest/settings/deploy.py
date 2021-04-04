@@ -10,9 +10,9 @@ def read_secret(secret_name):
 
 
 # reading .env file
-env = environ.Env(
-    DEBUG=(bool, False)
-)
+# env = environ.Env(
+#     DEBUG=(bool, False)
+# )
 # environ.Env.read_env(
 #     env_file=os.path.join(BASE_DIR, '.env')
 # )

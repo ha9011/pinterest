@@ -16,10 +16,10 @@ from pathlib import Path
 import environ
 from django.urls import reverse_lazy
 
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
+# env = environ.Env(
+#     # set casting, default value
+#     DEBUG=(bool, False)
+# )
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
