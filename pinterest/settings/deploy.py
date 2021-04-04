@@ -1,18 +1,18 @@
-
 from .base import *
 
+
 def read_secret(secret_name):
-    file = open("/run/secrets/"+secret_name)
+    file = open("/run/secrets/" + secret_name)
     secret = file.read()
     secret = secret.rstrip().lstrip()
     file.close()
     return secret
 
+
 # reading .env file
 environ.Env.read_env(
     env_file=os.path.join(BASE_DIR, '.env')
 )
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -34,9 +34,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django',  # db의 이름
-        'USER': 'django', #
+        'USER': 'django',  #
         'PASSWORD': read_secret("MYSQL_PASSWORD"),
-        'HOST': 'mariadb',   # 컨테이너 이름
+        'HOST': 'mariadb',  # 컨테이너 이름
         'PORT': '3306',
     }
 }
