@@ -68,5 +68,5 @@ class ArticleListView(ListView):
     model = Article
     context_object_name = "article_list"
     template_name = "articles/list.html"
-    paginate_by = 1  # 보여질 obj 갯수
+    paginate_by = 25  # 보여질 obj 갯수
 
