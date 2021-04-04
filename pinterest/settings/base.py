@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 
 import environ
+from django.contrib import messages
 from django.urls import reverse_lazy
 
 # env = environ.Env(
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     "comments",
     "projects",
     "subscribes",
+    "likes"
 ]
 
 MIDDLEWARE = [
@@ -134,3 +136,10 @@ STATICFILES_DIRS = [
 LOGIN_REDIRECT_URL = reverse_lazy("home")
 # 로그아웃시 리다이렉트
 LOGOUT_REDIRECT_URL = reverse_lazy("account:login")
+
+
+#
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+
+}
